@@ -6,6 +6,7 @@
     "start": "node .output/server/index.mjs"
   },
   "devDependencies": {
+    "nuxt-windicss": "^2.2.11",
     "nuxt3": "3.0.0-27369360.33ebb01"
   },
   "name": "zapchat",
@@ -16,11 +17,15 @@
   "author": "David Zechowy",
   "license": "MIT",
   "dependencies": {
+    "@pinia/nuxt": "^0.1.8",
+    "@vueuse/core": "^8.2.6",
+    "axios": "^0.26.1",
     "cookie-session": "^2.0.0",
     "express": "^4.17.3",
     "helmet": "^5.0.2",
     "mongoose": "^6.3.0",
     "passport": "^0.5.2",
-    "passport-google-oauth20": "^2.0.0"
+    "passport-google-oauth20": "^2.0.0",
+    "pinia": "^2.0.13"
   }
 }

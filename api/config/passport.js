@@ -23,7 +23,7 @@ export default () => {
                 let user = await User.findOne({ email: profile.emails[0].value })
 
                 if (user) {
-                    return done(null, userSchema)
+                    return done(null, user)
                 }
                 else {
                     user = await User.create(newUser)
