@@ -6,13 +6,21 @@
     "start": "node .output/server/index.mjs"
   },
   "devDependencies": {
-    "nuxt3": "latest"
+    "nuxt3": "3.0.0-27369360.33ebb01"
   },
-  "name": "ZapChat",
+  "name": "zapchat",
   "version": "1.0.0",
-  "description": "Original room-based chat app",
-  "main": "index.js",
+  "description": "An original room-based chat app",
+  "main": "nuxt.config.js",
   "repository": "https://github.com/davidzech27/ZapChat.git",
   "author": "David Zechowy",
-  "license": "MIT"
+  "license": "MIT",
+  "dependencies": {
+    "cookie-session": "^2.0.0",
+    "express": "^4.17.3",
+    "helmet": "^5.0.2",
+    "mongoose": "^6.3.0",
+    "passport": "^0.5.2",
+    "passport-google-oauth20": "^2.0.0"
+  }
 }
