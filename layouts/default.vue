@@ -1,5 +1,5 @@
 <template>
-<div class="min-h-screen">
+<div class="dark bg-background text-text min-h-screen">
     <slot></slot>
 </div>
 </template>
