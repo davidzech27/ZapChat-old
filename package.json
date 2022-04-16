@@ -1,0 +1,18 @@
+{
+  "private": false,
+  "scripts": {
+    "dev": "nuxi dev",
+    "build": "nuxi build",
+    "start": "node .output/server/index.mjs"
+  },
+  "devDependencies": {
+    "nuxt3": "latest"
+  },
+  "name": "ZapChat",
+  "version": "1.0.0",
+  "description": "Original room-based chat app",
+  "main": "index.js",
+  "repository": "https://github.com/davidzech27/ZapChat.git",
+  "author": "David Zechowy",
+  "license": "MIT"
+}
