@@ -2,12 +2,11 @@ import mongoose from "mongoose"
 
 const UserSchema = new mongoose.Schema({
     email: {//can't be viewed by other users and can't be changed
-        type: String,
-        unique: true
+        type: String
     },
     username: {//can be viewed by other users and can be changed by user directly
         type: String,
-        required: true,
+        unique: true,
         maxlength: 50
     },
     photo: {//can be viewed by other users but probably will not be able to be changed by user

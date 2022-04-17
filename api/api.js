@@ -12,7 +12,7 @@ const app = express()
 
     /room/create: create room. sends 409 error if room already exists. body args: roomName.
     /room/:name/update: update topic names of room. body args: topic1.name (optional), topic2.name (optional), topic3.name (optional).
-    /room/:name/send: send message in topic of room. body args: topicNumber, text.
+    /room/:name/send: send message in topic of room. body args: topicNumber, message.
     /room/:name: get room info.
 
 */
@@ -21,7 +21,7 @@ app.get("/profile", ensureAuth, (req, res) => {
     res.status(200).send(req.user)
 })
 
-app.post("/profile/update", ensureAuth, async (req, res) => {
+app.post("/profile/update", ensureAuth, async (req, res) => {//perhaps ensure that username is unique
     const newFields = {
         username: req.body.username || req.user.username,
         bio: req.body.bio || req.user.bio
@@ -57,20 +57,25 @@ app.post("/room/:name/update", ensureAuth, async (req, res) => {
     try {
         const room = await Room.findOne({ name: req.params.name })
 
-        const newFields = {
-            topic1: {
-                name: req.body.topic1.name || room.topic1.name
-            },
-            topic2: {
-                name: req.body.topic2.name || room.topic2.name
-            },
-            topic3: {
-                name: req.body.topic3.name || room.topic3.name
-            }
+        if (req.user.email !== room.administrator.email) {
+            res.status(403).send("not administrator")
         }
-
-        room = await room.update(newFields)//probably dont need to .save, but not 100% sure
-        res.sendStatus(200)
+        else {
+            const newFields = {
+                topic1: {
+                    name: req.body.topic1.name || room.topic1.name
+                },
+                topic2: {
+                    name: req.body.topic2.name || room.topic2.name
+                },
+                topic3: {
+                    name: req.body.topic3.name || room.topic3.name
+                }
+            }
+    
+            room = await room.update(newFields)//probably dont need to .save, but not 100% sure
+            res.sendStatus(200)
+        }
     }
     catch (err) {
         res.status(500).send(err)
@@ -85,7 +90,7 @@ app.post("/room/:name/send", ensureAuth, async (req, res) => {
         const room = await Room.findOne({ name: req.params.name })
 
         room["topic" + topicNumber].messages.push({
-            text: req.body.text,
+            text: req.body.message,
             sentBy: req.user.username
         })
         await room.save()

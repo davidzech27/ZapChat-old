@@ -56,6 +56,8 @@ const RoomSchema = new mongoose.Schema({
     }
 })
 
-
+RoomSchema.index({ "topic1.messages.sentAt": 1 })
+RoomSchema.index({ "topic2.messages.sentAt": 1 })
+RoomSchema.index({ "topic3.messages.sentAt": 1 })
 
 export default mongoose.model("Room", RoomSchema)
