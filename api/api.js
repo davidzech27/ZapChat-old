@@ -12,8 +12,8 @@ const app = express()
 
     /room/create: create room. sends 409 error if room already exists. body args: roomName.
     /room/:name/update: update topic names of room. body args: topic1.name (optional), topic2.name (optional), topic3.name (optional).
-    /room/:name/send: send message in topic of room. body args: topicNumber, message.
-    /room/:name: get room info.
+    /room/:name/send: send message in topic of room and sends back message. body args: topicNumber, text.
+    /room/:name: get room info. sends 404 error if room doesnt exist
 
 */
 
@@ -41,7 +41,7 @@ app.post("/room/create", ensureAuth, async (req, res) => {
         const existingRoom = await Room.findOne({ name: req.body.roomName }).lean()
 
         if (!existingRoom) {
-            await Room.create({ name: req.body.roomName, administrator: { email: req.user.email } })
+            await Room.create({ name: req.body.roomName, administrator: { username: req.user.username } })
             res.sendStatus(200)
         }
         else {
@@ -49,6 +49,7 @@ app.post("/room/create", ensureAuth, async (req, res) => {
         }
     }
     catch (err) {
+        console.log(err)
         res.status(500).send(err)
     }
 })
@@ -57,7 +58,7 @@ app.post("/room/:name/update", ensureAuth, async (req, res) => {
     try {
         const room = await Room.findOne({ name: req.params.name })
 
-        if (req.user.email !== room.administrator.email) {
+        if (req.user.username !== room.administrator.username) {
             res.status(403).send("not administrator")
         }
         else {
@@ -73,7 +74,7 @@ app.post("/room/:name/update", ensureAuth, async (req, res) => {
                 }
             }
     
-            room = await room.update(newFields)//probably dont need to .save, but not 100% sure
+            await room.update(newFields)//probably dont need to .save, but not 100% sure
             res.sendStatus(200)
         }
     }
@@ -89,12 +90,16 @@ app.post("/room/:name/send", ensureAuth, async (req, res) => {
     try {
         const room = await Room.findOne({ name: req.params.name })
 
-        room["topic" + topicNumber].messages.push({
-            text: req.body.message,
-            sentBy: req.user.username
-        })
+        const message = {
+            text: req.body.text,
+            sentBy: req.user.username,
+            sentAt: Date.now()
+        }
+
+        room["topic" + topicNumber].messages.push(message)
         await room.save()
-        res.sendStatus(200)
+
+        res.status(200).send(message)
     }
     catch (err) {
         res.status(500).send(err)
@@ -104,7 +109,12 @@ app.post("/room/:name/send", ensureAuth, async (req, res) => {
 app.get("/room/:name", ensureAuth, async (req, res) => {
     try {
         const room = await Room.findOne({ name: req.params.name }).lean()
-        res.status(200).send(room)
+        if (room) {
+            res.status(200).send(room)
+        }
+        else {
+            res.sendStatus(404)
+        }
     }
     catch (err) {
         res.status(500).send(err)

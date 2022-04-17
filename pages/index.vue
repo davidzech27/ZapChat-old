@@ -17,7 +17,7 @@
 </script>
 
 <template>
-<div class="bg-gradient-to-r from-blue to-purple
+<div class="gradient
             h-screen flex justify-center pt-72
             text-9xl text-text font-black">
     <span class="animate-pulse">ZapChat</span>

@@ -9,6 +9,9 @@ export const useRoom = defineStore("room", {
     getters: {
         isLoaded() {
             return JSON.stringify(this.room) !== "{}"
+        },
+        exists() {
+            return this.room !== 404
         }
     },
     actions: {
@@ -18,8 +21,18 @@ export const useRoom = defineStore("room", {
         async updateRoom(data) {
             await apiPost("/room/" + this.room.name + "/update", data)
         },
-        async sendMessage({ topicNumber, message }) {
-            this.room["topic" + topicNumber].messages.push(await apiPost("/room/" + this.room.name + "/send", { topicNumber, message }))
+        async sendMessage({ topicNumber, text }) {
+            this.room["topic" + topicNumber].messages.push(await apiPost("/room/" + this.room.name + "/send", { topicNumber, text }))
+        },
+        async createRoom(roomName) {
+            const roomCreateStatus = await apiPost("/room/create", { roomName: roomName })
+
+            if (roomCreateStatus === "OK") {
+                return true
+            }
+            else {
+                return false
+            }
         }
     }
 })

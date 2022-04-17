@@ -12,7 +12,9 @@ const RoomSchema = new mongoose.Schema({
         },
         messages: [{
             text: String,
-            sentBy: String,//username. other sender info will be shown only when username is clicked on
+            sentBy: {
+                username: String
+            },
             sentAt: {
                 type: Date,
                 default: Date.now
@@ -41,14 +43,11 @@ const RoomSchema = new mongoose.Schema({
         messages: [{
             text: String,
             sentBy: String,
-            sentAt: {
-                type: Date,
-                default: Date.now
-            }
+            sentAt: Date
         }]
     },
     administrator: {
-        email: String
+        username: String
     },
     createdOn: {
         type: Date,
