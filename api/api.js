@@ -11,7 +11,7 @@ const app = express()
     /profile/update: update name and/or bio. sends back new profile json. body args: username (optional), bio (optional).
 
     /room/create: create room. sends 409 error if room already exists. body args: roomName.
-    /room/:name/update: update topic names of room. body args: topic1.name (optional), topic2.name (optional), topic3.name (optional).
+    /room/:name/update: update topic names of room. body args: topic1 (optional), topic2 (optional), topic3 (optional).
     /room/:name/send: send message in topic of room and sends back message. body args: topicNumber, text.
     /room/:name: get room info. sends 404 error if room doesnt exist
 
@@ -62,19 +62,12 @@ app.post("/room/:name/update", ensureAuth, async (req, res) => {
             res.status(403).send("not administrator")
         }
         else {
-            const newFields = {
-                topic1: {
-                    name: req.body.topic1.name || room.topic1.name
-                },
-                topic2: {
-                    name: req.body.topic2.name || room.topic2.name
-                },
-                topic3: {
-                    name: req.body.topic3.name || room.topic3.name
-                }
-            }
-    
-            await room.update(newFields)//probably dont need to .save, but not 100% sure
+            room.topic1.name = req.body.topic1 || room.topic1.name
+            room.topic2.name = req.body.topic2 || room.topic2.name
+            room.topic3.name = req.body.topic3 || room.topic3.name
+
+            await room.save()
+
             res.sendStatus(200)
         }
     }
@@ -92,7 +85,9 @@ app.post("/room/:name/send", ensureAuth, async (req, res) => {
 
         const message = {
             text: req.body.text,
-            sentBy: req.user.username,
+            sentBy: {
+                username: req.user.username
+            },
             sentAt: Date.now()
         }
 

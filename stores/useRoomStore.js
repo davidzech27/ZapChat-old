@@ -16,7 +16,8 @@ export const useRoom = defineStore("room", {
     },
     actions: {
         async getRoom(roomName) {
-            this.room = await apiGet("/room/" + roomName)
+            const newRoom = await apiGet("/room/" + roomName)
+            this.room = newRoom
         },
         async updateRoom(data) {
             await apiPost("/room/" + this.room.name + "/update", data)
