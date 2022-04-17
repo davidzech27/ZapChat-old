@@ -4,12 +4,18 @@
 </div>
 </template>
 
+<script setup>
+
+</script>
+
 <script>
 export default {
     head: {
         bodyAttrs: {
             class: "overscroll-none overflow-hidden"
-        }
+        },
+        title: "ZapChat",
+        link: [{ rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }]
     }
 }
 </script>
