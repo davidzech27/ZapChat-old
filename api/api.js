@@ -49,7 +49,6 @@ app.post("/room/create", ensureAuth, async (req, res) => {
         }
     }
     catch (err) {
-        console.log(err)
         res.status(500).send(err)
     }
 })
@@ -90,15 +89,12 @@ app.post("/room/:name/send", ensureAuth, async (req, res) => {
             sentAt: (new Date(Date.now())).toString().split(" ")[4]
         }
 
-        console.log(message)
-
         room["topic" + topicNumber].messages.push(message)
         await room.save()
 
         res.status(200).send(message)
     }
     catch (err) {
-        console.log(err)
         res.status(500).send(err)
     }
 })
