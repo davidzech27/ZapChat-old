@@ -12,13 +12,8 @@ const RoomSchema = new mongoose.Schema({
         },
         messages: [{
             text: String,
-            sentBy: {
-                username: String
-            },
-            sentAt: {
-                type: Date,
-                default: Date.now
-            }
+            sentBy: String,//username
+            sentAt: String//hour:minute:secondxsxs
         }]
     },
     topic2: {
@@ -28,13 +23,8 @@ const RoomSchema = new mongoose.Schema({
         },
         messages: [{
             text: String,
-            sentBy: {
-                username: String
-            },
-            sentAt: {
-                type: Date,
-                default: Date.now
-            }
+            sentBy: String,
+            sentAt: String
         }]
     },
     topic3: {
@@ -44,12 +34,8 @@ const RoomSchema = new mongoose.Schema({
         },
         messages: [{
             text: String,
-            sentBy: {
-                username: String
-            },
-            sentAt: {
-                type: Date
-            }
+            sentBy: String,
+            sentAt: String
         }]
     },
     administrator: {

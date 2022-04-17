@@ -83,13 +83,14 @@ app.post("/room/:name/send", ensureAuth, async (req, res) => {
     try {
         const room = await Room.findOne({ name: req.params.name })
 
+        
         const message = {
             text: req.body.text,
-            sentBy: {
-                username: req.user.username
-            },
-            sentAt: Date.now()
+            sentBy: req.user.username,
+            sentAt: (new Date(Date.now())).toString().split(" ")[4]
         }
+
+        console.log(message)
 
         room["topic" + topicNumber].messages.push(message)
         await room.save()
@@ -97,6 +98,7 @@ app.post("/room/:name/send", ensureAuth, async (req, res) => {
         res.status(200).send(message)
     }
     catch (err) {
+        console.log(err)
         res.status(500).send(err)
     }
 })

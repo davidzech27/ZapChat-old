@@ -23,7 +23,7 @@
 
     onBeforeMount(async () => {
         await room.getRoom(roomName)
-        setInterval(() => { room.getRoom(roomName) }, 5000)//!
+        setInterval(() => { room.getRoom(roomName) }, 1500)
     })
 
     onMounted(async () => {
@@ -63,9 +63,9 @@
         
         <div class="h-[37.55rem] px-6 z-5 overflow-y-scroll" ref="topic1messages">
             <div v-for="message in roomData.topic1.messages" :key="message.sentAt" class="bg-surface my-6 p-4 rounded-xl grid grid-col">
-                <input type="text" :placeholder="message.sentBy.username" disabled class="bg-transparent text-subtext">
+                <input type="text" :placeholder="message.sentBy" disabled class="bg-transparent text-subtext">
                 <span class="mt-3">{{ message.text }}</span>
-                <span class="text-subtext justify-self-end">{{ message.sentAt }}</span>
+                <span class="text-subtext justify-self-end">Sent at {{ message.sentAt }}</span>
             </div>
         </div>
         
@@ -82,9 +82,9 @@
 
         <div class="h-[37.55rem] px-6 z-5 overflow-y-scroll" ref="topic2messages">
             <div v-for="message in roomData.topic2.messages" :key="message.sentAt" class="bg-background my-6 p-4 rounded-xl grid grid-col">
-                <input type="text" :placeholder="message.sentBy.username" disabled class="bg-transparent text-subtext">
+                <input type="text" :placeholder="message.sentBy" disabled class="bg-transparent text-subtext">
                 <span class="mt-3">{{ message.text }}</span>
-                <span class="text-subtext justify-self-end">{{ message.sentAt }}</span>
+                <span class="text-subtext justify-self-end">Sent at {{ message.sentAt }}</span>
             </div>
         </div>
 
@@ -99,9 +99,9 @@
 
         <div class="h-[37.55rem] px-6 z-5 overflow-y-scroll" ref="topic3messages">
             <div v-for="message in roomData.topic3.messages" :key="message.sentAt" class="bg-surface my-6 p-4 rounded-xl grid grid-col">
-                <input type="text" :placeholder="message.sentBy.username" disabled class="bg-transparent text-subtext">
+                <input type="text" :placeholder="message.sentBy" disabled class="bg-transparent text-subtext">
                 <span class="mt-3">{{ message.text }}</span>
-                <span class="text-subtext justify-self-end">{{ message.sentAt }}</span>
+                <span class="text-subtext justify-self-end">Sent at {{ message.sentAt }}</span>
             </div>
         </div>
 
