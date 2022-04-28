@@ -177,10 +177,11 @@ function updateRoom() {
 
 		<div
 			v-show="editRoomPopup"
-			@onclick="editRoomPopup.value = false"
+			@click="editRoomPopup = false"
 			class="absolute h-screen w-screen bg-background bg-opacity-75 backdrop-filter backdrop-blur-md flex justify-center items-center z-10"
 		>
 			<div
+				@click.stop
 				class="w-1/3 h-2/3 bg-background rounded-2xl border border-white border-opacity-20 grid grid-col pt-32 justify-center"
 			>
 				<input
@@ -202,7 +203,7 @@ function updateRoom() {
 					class="w-84 h-16 text-field bg-surface"
 				/>
 				<button
-					@click.stop="updateRoom"
+					@click="updateRoom"
 					class="w-84 h-24 mt-6 mb-10 rounded-xl bg-gradient-to-tr from-blue to-purple text-4xl tracking-wider transition-opacity duration-200 hover:opacity-85"
 				>
 					Update
