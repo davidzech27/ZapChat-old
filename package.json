@@ -11,7 +11,7 @@
   },
   "name": "zapchat",
   "version": "1.0.0",
-  "description": "An original room-based chat app",
+  "description": "An original, open-ended, room-based chat app.",
   "main": "nuxt.config.js",
   "repository": "https://github.com/davidzech27/ZapChat.git",
   "author": "David Zechowy",
