@@ -27,10 +27,9 @@ export const useRoom = defineStore("room", {
 		async updateRoom(data) {
 			await apiPost("/room/" + this.room.name + "/update", data)
 		},
-		async sendMessage({ topicNumber, text }) {
-			this.room["topic" + topicNumber].messages.push(
-				await apiPost("/room/" + this.room.name + "/send", { topicNumber, text })
-			)
+		async sendMessage({ topicNumber, text }, username) {
+			this.room["topic" + topicNumber].messages.push({ text: text, sentBy: username })
+			await apiPost("/room/" + this.room.name + "/send", { topicNumber, text })
 		},
 		async createRoom(roomName) {
 			const roomCreateStatus = await apiPost("/room/create", { roomName: roomName })
