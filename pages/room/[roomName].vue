@@ -20,6 +20,7 @@ const topic2 = ref("")
 const topic3 = ref("")
 
 const editRoomPopup = ref(false)
+
 const viewProfilePopup = ref(false)
 const viewedProfile = ref(null)
 
@@ -92,7 +93,7 @@ function viewProfile(message) {
 
 			<div class="h-[37.55rem] px-6 z-5 overflow-y-scroll" ref="topic2messages">
 				<div v-for="message in roomData.topic2.messages" :key="message.sentAt" class="bg-background my-6 p-4 rounded-xl grid grid-col">
-					<span class="text-subtext font-normal w-min">{{ message.sentBy }}</span>
+					<span class="text-subtext font-normal w-min" @click="viewProfile(message)">{{ message.sentBy }}</span>
 					<span class="mt-3">{{ message.text }}</span>
 					<span class="text-subtext justify-self-end" v-if="message.sentAt">Sent at {{ message.sentAt }}</span>
 				</div>
@@ -109,7 +110,7 @@ function viewProfile(message) {
 
 			<div class="h-[37.55rem] px-6 z-5 overflow-y-scroll" ref="topic3messages">
 				<div v-for="message in roomData.topic3.messages" :key="message.sentAt" class="bg-surface my-6 p-4 rounded-xl grid grid-col">
-					<span class="text-subtext font-normal w-min">{{ message.sentBy }}</span>
+					<span class="text-subtext font-normal w-min" @click="viewProfile(message)">{{ message.sentBy }}</span>
 					<span class="mt-3">{{ message.text }}</span>
 					<span class="text-subtext justify-self-end" v-if="message.sentAt">Sent at {{ message.sentAt }}</span>
 				</div>
