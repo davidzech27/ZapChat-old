@@ -1,29 +1,20 @@
-# Nuxt 3 Minimal Starter
+## An original, open-ended, room-based chat app
 
-We recommend to look at the [documentation](https://v3.nuxtjs.org).
+### Zapchat was made in 24 hours for a [hackathon](https://devpost.com/software/zapchat).
 
-## Setup
+#### Made with Nuxt.js
 
-Make sure to install the dependencies
-
+Install dependencies
 ```bash
 yarn install
 ```
 
-## Development
-
-Start the development server on http://localhost:3000
-
+Run dev server
 ```bash
-yarn dev
+yarn run dev
 ```
 
-## Production
-
-Build the application for production:
-
+Build for production
 ```bash
 yarn build
 ```
-
-Checkout the [deployment documentation](https://v3.nuxtjs.org/docs/deployment).
